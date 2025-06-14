@@ -1,0 +1,143 @@
+/* Основные настройки */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fafafa;
+    margin: 0;
+    padding: 20px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Шапка страницы */
+.page-header {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-header__title {
+    font-weight: bold;
+}
+
+.page-header__subtitle {
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* Основная область содержимого */
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.content__section {
+    margin-bottom: 40px;
+}
+
+.section__title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.info {
+    font-style: italic;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+/* Секция с лейблом и переключением */
+.section {
+    margin-bottom: 40px;
+}
+
+.section-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.section-toggle {
+    appearance: none;
+    outline: none;
+    user-select: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: all .2s ease-in-out;
+    margin-right: 10px;
+}
+
+.section-toggle:checked {
+    background-color: #007bff;
+    border-color: transparent;
+}
+
+.section-content {
+    margin-left: 30px;
+    transition: transform .2s linear;
+}
+
+.section-toggle:checked ~ .section-content,
+.section-toggle:checked ~ .section-content * {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+/* Оформление чекбоксов и списков */
+.lesson__list li {
+    position: relative;
+    cursor: pointer;
+    padding-left: 30px;
+}
+
+.lesson__list input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+}
+
+.lesson__list input[type="checkbox"] + span::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.lesson__list input[type="checkbox"]:checked + span::before {
+    background-color: #007bff;
+    border-color: transparent;
+}
+
+.lesson__list input[type="checkbox"]:checked + span {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+/* Футер */
+.page-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8em;
+    color: #6c757d;
+}
