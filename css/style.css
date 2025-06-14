@@ -1,3 +1,8 @@
+/* Общие настройки */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
@@ -30,10 +35,57 @@ body {
     color: #6c757d;
 }
 
-/* Основная область содержимого */
+/* Главный контейнер для размещения сайдбара и контента */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Фиксированный сайдбар */
+#sidebar-nav {
+    width: 200px; /* фиксированная ширина */
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    position: fixed; /* фиксируется на странице */
+    top: 0;
+    left: 0;
+    height: 615px; /* высота на всю видимую область */
+    overflow-y: auto; /* прокрутка при избытке контента */
+}
+
+#sidebar-nav nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar-nav nav ul li {
+    margin-bottom: 10px;
+}
+
+#sidebar-nav nav ul a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+#sidebar-nav nav ul a:hover {
+    background-color: #555;
+}
+
+.sidebar-nav__list {
+    margin-top: 100px;
+}
+
+/* Основное содержание */
 .content {
-    max-width: 800px;
-    margin: 0 auto;
+    flex-grow: 1; /* займёт все свободное пространство */
+    padding: 20px;
+    margin-left: 220px; /* отступ слева равен ширине сайдбара */
 }
 
 .content__section {
