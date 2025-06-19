@@ -1,23 +1,44 @@
-// Обработка изменения состояния чекбокса отдельной задачи
-document.querySelectorAll(".lesson__list input").forEach(input => {
-    input.addEventListener("change", function () {
-        const task = this.nextElementSibling; // Следующий элемент (текст)
-        if (this.checked) {
-            task.classList.add("completed"); // Добавляем класс 'completed' при выборе
-        } else {
-            task.classList.remove("completed"); // Удаляем класс 'completed'
-        }
-    });
-});
 
-// Обработка изменения состояния чекбокса целого раздела
-document.querySelectorAll(".section-toggle").forEach(toggle => {
-    toggle.addEventListener("change", function () {
-        const sectionContent = this.closest(".section-label").nextElementSibling; // Получаем ближайший родительский блок (.section-label), затем получаем следующего брата
-        if (this.checked) {
-            sectionContent.classList.add("completed");
-        } else {
-            sectionContent.classList.remove("completed");
+function saveCheckboxState(id, checked) {
+  localStorage.setItem(id, JSON.stringify({ checked }));
+}
+
+function loadCheckboxState(id) {
+  const saved = localStorage.getItem(id);
+  return saved ? JSON.parse(saved).checked : false;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+    const id = checkbox.id;
+    if (!id) return;
+
+    checkbox.checked = loadCheckboxState(id);
+
+    if (checkbox.checked && checkbox.nextElementSibling) {
+      checkbox.nextElementSibling.classList.add('completed');
+    }
+
+    checkbox.addEventListener('change', () => {
+      saveCheckboxState(id, checkbox.checked);
+      if (checkbox.nextElementSibling) {
+        checkbox.nextElementSibling.classList.toggle('completed', checkbox.checked);
+      }
+
+      // Если это месячный чекбокс — отметить все дочерние
+      if (checkbox.classList.contains('section-toggle')) {
+        const section = checkbox.closest('.section');
+        if (section) {
+          const innerCheckboxes = section.querySelectorAll('.lesson__list input[type="checkbox"]');
+          innerCheckboxes.forEach(cb => {
+            cb.checked = checkbox.checked;
+            saveCheckboxState(cb.id, checkbox.checked);
+            if (cb.nextElementSibling) {
+              cb.nextElementSibling.classList.toggle('completed', checkbox.checked);
+            }
+          });
         }
+      }
     });
+  });
 });
